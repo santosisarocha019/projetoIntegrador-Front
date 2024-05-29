@@ -1,0 +1,18 @@
+.conteiner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--roxo-escuro);
+    padding: 20px; 
+}
+
+h1 {
+    color: var(--cinza-claro);
+    font-size: 40px;
+    margin-left: 10px; 
+}
+
+span {
+    color: var(--cinza-claro);
+    font-size: 32px; 
+}

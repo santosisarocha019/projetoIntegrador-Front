@@ -1,0 +1,22 @@
+:root{
+  --cinza-claro:#f3f0f3;
+  --roxo-escuro:#1f0322;
+  --roxo-claro:#ab10bc; 
+
+}
+
+*{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+body{
+  background-color: var(--roxo-escuro);
+  font-family: "Dancing Script", cursive; 
+  font-size: 24px;
+}
+
+h1{
+  color:(--cinza-claro)
+}

@@ -1,0 +1,41 @@
+
+.conteiner {
+    background-color: var(--cinza-claro);
+    width: 200px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.perfil {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--roxo-escuro);
+    font-weight: bold;
+}
+
+.perfil img {
+    width: 70px;
+    height: 70px;
+    border-radius: 10%;
+    margin-right: 10px;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+}
+
+.perfil:hover {
+    background-color: var(--roxo-claro);
+    color: var(--cinza-claro);
+}
