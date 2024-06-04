@@ -1,8 +1,9 @@
 :root{
-  --cinza-claro:#f3f0f3;
-  --roxo-escuro:#1f0322;
-  --roxo-claro:#ab10bc; 
-
+  --branco:#FFFFFF;
+  --azul-claro:#bee2fd;
+  --preto:#000000;   
+  --roxo-claro:#D0D1FF; 
+  --roxo-escuro:#8B8DFE; 
 }
 
 *{
@@ -11,9 +12,10 @@
   box-sizing: border-box;
 }
 
-body{
-  background-color: var(--roxo-escuro);
-  font-family: "Dancing Script", cursive; 
+body {
+  background-color: var(--branco);
+  font-family: 'Jost', sans-serif;
+  font-weight: bold; /* Correct property for bold text */
   font-size: 24px;
 }
 

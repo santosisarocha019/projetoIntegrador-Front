@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 import estilos from './Login.module.css';
+import logo from '../assets/logo-branco.png'
 
 const schemaLogin = z.object({
     usuario: z.string()
@@ -39,9 +40,12 @@ export function Login() {
     }
 
     return (
+    
         <div className={estilos.conteiner}>
-            <p className={estilos.titulo}>Login</p>
+            <img className={estilos.logo} src={logo}/>            
+            
             <form className={estilos.formulario} onSubmit={handleSubmit(obterDadosFormulario)}>
+            <p className={estilos.titulo}>Login</p>
                 <input
                     {...register('usuario')}
                     className={estilos.campo}
