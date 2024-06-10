@@ -50,7 +50,7 @@ export function CadastroSensor(){
         }
     }
     return(
-        <div className={estilos.container}>
+        <main className={estilos.container}>
             <h1> Cadastro de Sensores</h1>
             <form className={estilos.formulario} onSubmit={handleSbmit(obterDadosFormulario)}>
                 <select{...register('tipo')} className={estilos.campo}>
@@ -117,6 +117,6 @@ export function CadastroSensor(){
             
             </form>
 
-        </div>
+        </main>
     )
 }

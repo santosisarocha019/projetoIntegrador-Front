@@ -64,7 +64,7 @@ export function AlteraSensor() {
     };
 
     return (
-        <div className={estilos.container}>
+        <main className={estilos.container}>
             <h1>Alteração de Sensor</h1>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <label>Tipo</label>
@@ -109,6 +109,6 @@ export function AlteraSensor() {
                 
                 <button type="submit" className={estilos.botao}>Salvar</button>
             </form>
-        </div>
+        </main>
     );
 }

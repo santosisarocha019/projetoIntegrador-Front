@@ -51,7 +51,7 @@ export function Sensor() {
   }
 
   return (
-    <div className={estilos.container}>
+    <main className={estilos.container}>
       <h1>Tabela de Sensores</h1>
       <div className={estilos.filterContainer}>
         <input
@@ -106,6 +106,6 @@ export function Sensor() {
           ))}
         </tbody>
       </table>
-    </div>
+    </main>
   );
 }

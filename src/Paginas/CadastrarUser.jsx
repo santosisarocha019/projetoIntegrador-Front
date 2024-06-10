@@ -47,59 +47,56 @@ export function Cadastro() {
     }
 
     return (
-        <div>
-           
-            <div className={estilos.container}>
-                <form className={estilos.formulario} onSubmit={handleSubmit(handleCadastro)}>
-                    
-                    <h2 className={estilos.titulo}>Cadastre um novo usuário</h2>
-                    
-                    <input
-                        {...register('usuario')}
-                        className={estilos.campo}
-                        placeholder="Usuário"
-                    />
-                    {errors.usuario && (
-                        <p className={estilos.erro}>{errors.usuario.message}</p>
-                    )}
+        <main className={estilos.container}>
+            <form className={estilos.formulario} onSubmit={handleSubmit(handleCadastro)}>
+                
+                <h2 className={estilos.titulo}>Cadastre um novo usuário</h2>
+                
+                <input
+                    {...register('usuario')}
+                    className={estilos.campo}
+                    placeholder="Usuário"
+                />
+                {errors.usuario && (
+                    <p className={estilos.erro}>{errors.usuario.message}</p>
+                )}
 
-                    <input
-                        type="email"
-                        {...register('email')}
-                        className={estilos.campo}
-                        placeholder="E-mail"
-                    />
-                    {errors.email && (
-                        <p className={estilos.erro}>{errors.email.message}</p>
-                    )}
+                <input
+                    type="email"
+                    {...register('email')}
+                    className={estilos.campo}
+                    placeholder="E-mail"
+                />
+                {errors.email && (
+                    <p className={estilos.erro}>{errors.email.message}</p>
+                )}
 
-                    <input
-                        type="password"
-                        {...register('senha')}
-                        className={estilos.campo}
-                        placeholder="Senha"
-                    />
-                    {errors.senha && (
-                        <p className={estilos.erro}>{errors.senha.message}</p>
-                    )}
+                <input
+                    type="password"
+                    {...register('senha')}
+                    className={estilos.campo}
+                    placeholder="Senha"
+                />
+                {errors.senha && (
+                    <p className={estilos.erro}>{errors.senha.message}</p>
+                )}
 
-                    <input
-                        type="password"
-                        {...register('confirmarSenha')}
-                        className={estilos.campo}
-                        placeholder="Confirmar Senha"
-                    />
-                    {errors.confirmarSenha && (
-                        <p className={estilos.erro}>{errors.confirmarSenha.message}</p>
-                    )}
+                <input
+                    type="password"
+                    {...register('confirmarSenha')}
+                    className={estilos.campo}
+                    placeholder="Confirmar Senha"
+                />
+                {errors.confirmarSenha && (
+                    <p className={estilos.erro}>{errors.confirmarSenha.message}</p>
+                )}
 
-                    {senha !== confirmarSenha && (
-                        <p className={estilos.erro}>As senhas não coincidem.</p>
-                    )}
+                {senha !== confirmarSenha && (
+                    <p className={estilos.erro}>As senhas não coincidem.</p>
+                )}
 
-                    <button type="submit" className={estilos.botao}>Cadastrar</button>
-                </form>
-            </div>
-        </div>
+                <button type="submit" className={estilos.botao}>Cadastrar</button>
+            </form>
+        </main>
     );
 }

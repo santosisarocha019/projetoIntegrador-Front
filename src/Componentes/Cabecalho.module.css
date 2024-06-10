@@ -4,6 +4,8 @@
     align-items: center;
     background-color: var(--roxo-claro);
     padding: 20px; 
+    position: fixed;
+    height: 7vh;
     h1 {
         color: var(--branco);
         font-size: 30px;

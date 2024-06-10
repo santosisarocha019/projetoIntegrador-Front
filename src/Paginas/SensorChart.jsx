@@ -12,6 +12,7 @@ export function SensorChart() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState("");
+  const [returnType, setReturnType] = useState('tipo');
 
   useEffect(() => {
     async function fetchSensores() {
@@ -55,6 +56,7 @@ export function SensorChart() {
               timestamp_gte: "2024-04-01T00:00:00",
               timestamp_lt: "2024-04-02T00:00:00"
             };
+            setReturnType('valor')
             break;
           case 'Umidade':
             url = 'umidade_filter/';
@@ -65,6 +67,7 @@ export function SensorChart() {
               timestamp_gte: "2024-04-01T00:00:00",
               timestamp_lt: "2024-04-02T00:00:00"
             };
+            setReturnType('valor')
             break;
           case 'Luminosidade':
             url = 'luminosidade_filter/';
@@ -75,15 +78,9 @@ export function SensorChart() {
               timestamp_gte: "2024-04-21T00:00:00",
               timestamp_lt: "2024-04-22T00:00:00"
             };
+            setReturnType('valor')
             break;
-          case 'Contador':
-            url = 'contador_filter/';
-            body = {
-              sensor_id: 70,
-              timestamp_gte: "2024-04-01T00:00:00",
-              timestamp_lt: "2024-04-30T00:00:00"
-            };
-            break;
+          
           default:
             url = 'sensores/';
         }
@@ -111,7 +108,7 @@ export function SensorChart() {
   }
 
   const data = {
-    labels: filteredSensores.map(sensor => sensor.tipo),
+    labels: filteredSensores.map(sensor => sensor[returnType]),
     datasets: [
       {
         label: 'Quantidade de Sensores',
@@ -122,7 +119,7 @@ export function SensorChart() {
       },
     ],
   };
-
+  
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -140,7 +137,7 @@ export function SensorChart() {
   const uniqueTypes = [...new Set(sensores.map(sensor => sensor.tipo))];
 
   return (
-    <div className={estilos.container}>
+    <main className={estilos.container}>
       <h1>Gráfico de Sensores</h1>
       <div className={estilos.filtro}>
         <label htmlFor="tipo">Filtrar por Tipo: </label>
@@ -160,7 +157,7 @@ export function SensorChart() {
       <div className={estilos.chartContainer}>
         <Bar data={data} options={options} />
       </div>
-    </div>
+    </main>
   );
 }
 
