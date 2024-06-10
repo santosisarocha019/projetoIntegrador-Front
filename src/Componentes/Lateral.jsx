@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThermometerHalf, faMapMarkedAlt, faChartBar } from '@fortawesome/free-solid-svg-icons';
+import { faThermometerHalf, faMapMarkedAlt, faChartBar, faUserPlus } from '@fortawesome/free-solid-svg-icons'; // Adicionando o ícone de cadastro de usuário
 import estilos from './Lateral.module.css';
 import perfil from '../assets/perfil.png';
-import logo from '../assets/logo-branco.png'
+import logo from '../assets/logo-branco.png';
 
 export function Lateral() {
     return (
@@ -21,15 +21,20 @@ export function Lateral() {
                     <FontAwesomeIcon icon={faThermometerHalf} className={estilos.icon} />
                     Sensor
                 </Link>
-                <Link className={estilos.link} to='/inicial/perfil'>
+                <Link className={estilos.link} to='/inicial/localizacao'>
                     <FontAwesomeIcon icon={faMapMarkedAlt} className={estilos.icon} />
                     Mapa
                 </Link>
-                <Link className={estilos.link} to='/inicial/perfil'>
+                <Link className={estilos.link} to='/inicial/grafico-sensores'>
                     <FontAwesomeIcon icon={faChartBar} className={estilos.icon} />
                     Gráfico
                 </Link>
-                <img className={estilos.logo} src={logo}/>    
+                
+                <Link className={estilos.link} to='/inicial/cadastro-usuario'>
+                    <FontAwesomeIcon icon={faUserPlus} className={estilos.icon} />
+                    Cadastrar User
+                </Link>
+                <img className={estilos.logo} src={logo} alt="Logo" />    
             </section>
         </aside>
     );

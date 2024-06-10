@@ -29,7 +29,7 @@ export function AlteraSensor() {
     const obterDadosSensor = async () => {
         try {
             const token = localStorage.getItem('access_token');
-            const response = await axios.get(`http://127.0.0.1:8000/api/sensores/${id}/`, {
+            const response = await axios.get(`https://isarocha.pythonanywhere.com/api/sensores/${id}/`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -51,7 +51,7 @@ export function AlteraSensor() {
         console.log("Dados inputados no formulário para o PUT", data);
         try {
             const token = localStorage.getItem('access_token');
-            await axios.put(`http://127.0.0.1:8000/api/sensores/${id}/`, data, {
+            await axios.put(`https://isarocha.pythonanywhere.com/api/sensores/${id}/`, data, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

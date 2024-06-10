@@ -12,6 +12,18 @@ h1 {
   margin: 20px 0;
 }
 
+.filterContainer {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+input {
+  padding: 8px;
+  border: 1px solid var(--azul-claro);
+  border-radius: 4px;
+}
+
 table {
   width: 80%;
   border-collapse: collapse;

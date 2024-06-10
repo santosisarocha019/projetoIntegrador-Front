@@ -24,7 +24,7 @@ export function Login() {
 
     async function obterDadosFormulario(data) {
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/token/', {
+            const response = await axios.post('https://isarocha.pythonanywhere.com/api/token/', {
                 username: data.usuario,
                 password: data.senha
             });

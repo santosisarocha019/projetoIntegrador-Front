@@ -38,7 +38,7 @@ export function CadastroSensor(){
 
     async function obterDadosFormulario(data){
         try{
-            const response = await axios.post('http://127.0.0.1:8000/api/sensores', data,{
+            const response = await axios.post('https://isarocha.pythonanywhere.com/api/sensores', data,{
                 headers:{
                     'Authorization': `Bearer ${localStorage.getItem('access_token')}`
                 } 

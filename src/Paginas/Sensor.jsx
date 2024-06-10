@@ -9,12 +9,13 @@ export function Sensor() {
   const [sensores, setSensores] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [filter, setFilter] = useState({ tipo: '', localizacao: '', responsavel: '' });
 
   useEffect(() => {
     async function fetchSensores() {
       try {
         const token = localStorage.getItem('access_token');
-        const response = await axios.get('http://127.0.0.1:8000/api/sensores/', {
+        const response = await axios.get('https://isarocha.pythonanywhere.com/api/sensores/', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -29,6 +30,18 @@ export function Sensor() {
     fetchSensores();
   }, []);
 
+  const handleFilterChange = (e) => {
+    setFilter({ ...filter, [e.target.name]: e.target.value });
+  };
+
+  const filteredSensores = sensores.filter(sensor => {
+    return (
+      (filter.tipo === '' || sensor.tipo.toLowerCase().includes(filter.tipo.toLowerCase())) &&
+      (filter.localizacao === '' || sensor.localizacao.toLowerCase().includes(filter.localizacao.toLowerCase())) &&
+      (filter.responsavel === '' || sensor.responsavel.toLowerCase().includes(filter.responsavel.toLowerCase()))
+    );
+  });
+
   if (loading) {
     return <div><p>Carregando...</p></div>;
   }
@@ -40,6 +53,29 @@ export function Sensor() {
   return (
     <div className={estilos.container}>
       <h1>Tabela de Sensores</h1>
+      <div className={estilos.filterContainer}>
+        <input
+          type="text"
+          name="tipo"
+          placeholder="Filtrar por tipo"
+          value={filter.tipo}
+          onChange={handleFilterChange}
+        />
+        <input
+          type="text"
+          name="localizacao"
+          placeholder="Filtrar por localização"
+          value={filter.localizacao}
+          onChange={handleFilterChange}
+        />
+        <input
+          type="text"
+          name="responsavel"
+          placeholder="Filtrar por responsável"
+          value={filter.responsavel}
+          onChange={handleFilterChange}
+        />
+      </div>
       <table>
         <thead>
           <tr>
@@ -53,7 +89,7 @@ export function Sensor() {
           </tr>
         </thead>
         <tbody>
-          {sensores.map(sensor => (
+          {filteredSensores.map(sensor => (
             <tr key={sensor.id}>
               <td>{sensor.id}</td>
               <td>{sensor.tipo}</td>

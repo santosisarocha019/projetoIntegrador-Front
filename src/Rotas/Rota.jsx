@@ -4,6 +4,9 @@ import { Login } from "../Paginas/Login";
 import { Sensor } from "../Paginas/Sensor";
 import {CadastroSensor} from "../Paginas/CadastroSensor";
 import { AlteraSensor } from "../Paginas/AlteraSensor";
+import { Localizacao } from '../Paginas/Localizacao';
+import { SensorChart } from "../Paginas/SensorChart";
+import { Cadastro } from "../Paginas/CadastrarUser";
 
 
 export function Rotas(){
@@ -14,6 +17,9 @@ export function Rotas(){
                 <Route index element={<Sensor/>}/>
                 <Route path="cadsensor" element={<CadastroSensor/>}/>
                 <Route path="alterar-sensor/:id" element={<AlteraSensor/>}/>
+                <Route path='localizacao' element={ <Localizacao /> } />
+                <Route path="grafico-sensores" element={<SensorChart />} />
+                <Route path="cadastro-usuario" element={<Cadastro />} />
 
                 
             </Route>
