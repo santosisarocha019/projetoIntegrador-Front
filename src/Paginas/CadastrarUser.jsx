@@ -10,8 +10,8 @@ import axios from "axios";
 const schemaCadastro = z.object({
     usuario: z.string().min(5, 'Mínimo de 5 caracteres').max(10, 'Máximo de 10 caracteres'),
     email: z.string().email('Endereço de e-mail inválido').min(5, 'Mínimo de 5 caracteres'),
-    senha: z.string().min(8, 'Mínimo de 8 caracteres').max(20, 'Máximo de 20 caracteres'),
-    confirmarSenha: z.string().refine((value, data) => value === data.senha, {
+    senha: z.string().min(6, 'Mínimo de 8 caracteres').max(20, 'Máximo de 20 caracteres'),
+    confirmarSenha: z.string().min(6, 'Mínimo de 8 caracteres').max(20, 'Máximo de 20 caracteres').refine((value, context) => value === context?.parent?.senha, {
         message: 'As senhas não coincidem',
         path: ['confirmarSenha']
     })
@@ -30,19 +30,33 @@ export function Cadastro() {
     async function handleCadastro(data) {
         try {
             const token = localStorage.getItem('access_token');
+            if (!token) {
+                alert("Token de acesso não encontrado. Por favor, faça login novamente.");
+                navigate('/login');
+                return;
+            }
+
             const response = await axios.post('https://isarocha.pythonanywhere.com/api/create_user', {
                 username: data.usuario,
+                email: data.email,
                 password: data.senha
             }, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             });
-            console.log("Usuário cadastrado com sucesso:", response.data);
-            alert("Usuário cadastrado com sucesso!");
-            navigate('/inicial');
+
+            if (response.status === 201) {
+                console.log("Usuário cadastrado com sucesso:", response.data);
+                alert("Usuário cadastrado com sucesso!");
+                navigate('/inicial');
+            } else {
+                console.error("Erro no cadastro:", response.data);
+                alert("Erro no cadastro: " + response.data.detail);
+            }
         } catch (error) {
-            console.error("Erro no cadastro:", error);
+            console.error("Erro no cadastro:", error.response?.data || error.message);
+            alert("Erro no cadastro: " + (error.response?.data.detail || error.message));
         }
     }
 
