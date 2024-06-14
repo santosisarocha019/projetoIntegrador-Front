@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThermometerHalf, faMapMarkedAlt, faChartBar, faUserPlus } from '@fortawesome/free-solid-svg-icons'; // Adicionando o ícone de cadastro de usuário
+import { faThermometerHalf, faMapMarkedAlt, faChartBar, faUserPlus, faPlusCircle } from '@fortawesome/free-solid-svg-icons'; // Adicionando o ícone de cadastro de sensor
 import estilos from './Lateral.module.css';
 import perfil from '../assets/perfil.png';
 import logo from '../assets/logo-branco.png';
@@ -29,10 +29,13 @@ export function Lateral() {
                     <FontAwesomeIcon icon={faChartBar} className={estilos.icon} />
                     Gráfico
                 </Link>
-                
                 <Link className={estilos.link} to='/inicial/cadastro-usuario'>
                     <FontAwesomeIcon icon={faUserPlus} className={estilos.icon} />
                     Cadastrar User
+                </Link>
+                <Link className={estilos.link} to='/inicial/cadsensor'>
+                    <FontAwesomeIcon icon={faPlusCircle} className={estilos.icon} />
+                    Cadastrar Sensor
                 </Link>
                 <img className={estilos.logo} src={logo} alt="Logo" />    
             </section>

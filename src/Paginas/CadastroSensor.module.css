@@ -1,0 +1,74 @@
+.container {
+    display: flex;
+    height: 100vh;
+    width: 250vh; 
+    justify-content: center;
+    align-items: center;
+    background-color: var(--branco); 
+}
+
+.formWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--roxo-claro);
+    padding: 80px; 
+    border-radius: 10px;
+}
+
+.titulo {
+    color: var(--branco);
+    font-size: 24px;
+    margin-bottom: 20px; 
+    text-align: center;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    align-items: center;
+    width: 100%; 
+    max-width: 500px;
+}
+
+.campo {
+    margin-bottom: 15px; 
+    padding: 10px; 
+    border-radius: 6px;
+    font-size: 16px;
+    width: 100%; 
+}
+
+.campoCheckbox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 16px;
+    width: 100%;
+}
+
+.campoCheckbox input {
+    margin-left: 10px;
+}
+
+.mensagem {
+    color: red; 
+    font-size: 14px; 
+    margin-bottom: 10px;
+}
+
+.botao {
+    background-color: var(--azul-claro);
+    color: var(--cinza-claro);
+    padding: 10px 20px; 
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    border-color: var(--azul-claro);
+}
+
+.botao:hover {
+    background-color: var(--azul-claro); 
+    color: var(--preto); 
+}
