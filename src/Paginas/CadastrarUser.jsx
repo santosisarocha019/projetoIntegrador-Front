@@ -13,10 +13,15 @@ export function Cadastro() {
         usuario: z.string().min(5, 'Mínimo de 5 caracteres').max(10, 'Máximo de 10 caracteres'),
         email: z.string().email('Endereço de e-mail inválido').min(5, 'Mínimo de 5 caracteres'),
         senha: z.string().min(6, 'Mínimo de 6 caracteres').max(20, 'Máximo de 20 caracteres'),
-        confirmarSenha: z.string().min(6, 'Mínimo de caracteres').max(20, 'Máximo de 20 caracteres').refine((value, context) => value === context?.parent?.senha, {
-            message: 'As senhas não coincidem',
-            path: ['confirmarSenha']
-        })
+        confirmarSenha: z.string().min(6, 'Mínimo de 6 caracteres').max(20, 'Máximo de 20 caracteres')
+    }).superRefine(({ senha, confirmarSenha }, context) => {
+        if (senha !== confirmarSenha) {
+            context.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: "As senhas não coincidem",
+                path: ["confirmarSenha"]
+            });
+        }
     });
 
     const navigate = useNavigate();
@@ -29,9 +34,8 @@ export function Cadastro() {
     const confirmarSenha = watch('confirmarSenha', '');
 
     async function handleCadastro(data) {
-        console.log(data)
-        console.log('CSRLAOH PORRA CU DESGRSAÇA')
         try {
+            console.log("Dados do formulário:", data);
             const token = localStorage.getItem('access_token');
             if (!token) {
                 alert("Token de acesso não encontrado. Por favor, faça login novamente.");
@@ -59,14 +63,13 @@ export function Cadastro() {
             }
         } catch (error) {
             console.error("Erro no cadastro:", error.response?.data || error.message);
-            alert("Erro no cadastro: " + (error.response?.data.detail || error.message));
+            alert("Erro no cadastro: " + (error.response?.data?.detail || error.message));
         }
     }
 
     return (
         <main className={estilos.container}>
             <form className={estilos.formulario} onSubmit={handleSubmit(handleCadastro)}>
-                
                 <h2 className={estilos.titulo}>Cadastre um novo usuário</h2>
                 
                 <input
@@ -106,10 +109,6 @@ export function Cadastro() {
                 />
                 {errors.confirmarSenha && (
                     <p className={estilos.erro}>{errors.confirmarSenha.message}</p>
-                )}
-
-                {senha !== confirmarSenha && (
-                    <p className={estilos.erro}>As senhas não coincidem.</p>
                 )}
 
                 <button type="submit" className={estilos.botao}>Cadastrar</button>
