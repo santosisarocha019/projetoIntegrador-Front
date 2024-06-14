@@ -1,27 +1,27 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate, useParams } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { z } from 'zod';
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import estilos from './AlteraSensor.module.css';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 const schemaAlterarSensor = z.object({
-    tipo: z.string().optional(),
-    mac_address: z.string()
-        .max(25, "Deve ter no máximo 25 caracteres").nullable(),
+    mac_address: z.string().max(20, 'Máximo de 20 caracteres').nullable(),
     latitude: z.number().refine(val => !isNaN(parseFloat(val)), 'Latitude inválida'),
     longitude: z.number().refine(val => !isNaN(parseFloat(val)), 'Longitude inválida'),
-    localizacao: z.string().max(100, 'Deve ter no máximo 100 caracteres'),
-    responsavel: z.string().max(100, 'Deve ter no máximo 100 caracteres'),
-    unidade_medida: z.string().max(20, 'Deve ter no máximo 20 caracteres'),
-    status_operacional: z.string().nullable(),
-    observacao: z.string().nullable()
+    localizacao: z.string().max(100, 'Máximo de 100 caracteres'),
+    responsavel: z.string().max(100, 'Máximo de 100 caracteres'),
+    unidade_medida: z.string().max(20, 'Máximo de 20 caracteres').nullable(),
+    status_operacional: z.boolean(),
+    observacao: z.string().nullable(),
+    tipo: z.string().optional() 
 });
 
 export function AlteraSensor() {
     const navigate = useNavigate();
     const { id } = useParams();
+    console.log("ID obtido da URL:", id); 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm({
         resolver: zodResolver(schemaAlterarSensor)
     });
@@ -29,17 +29,19 @@ export function AlteraSensor() {
     const obterDadosSensor = async () => {
         try {
             const token = localStorage.getItem('access_token');
-            const response = await axios.get(`https://isarocha.pythonanywhere.com/api/sensores/${id}/`, {
+            console.log("Token obtido:", token); 
+            const response = await axios.get(`https://isarocha.pythonanywhere.com/api/sensores/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             });
             const sensorData = response.data;
+            console.log("Dados do sensor obtidos:", sensorData); // Log para verificar os dados do sensor
             Object.keys(sensorData).forEach(key => {
                 setValue(key, sensorData[key]);
             });
         } catch (err) {
-            console.log('Erro ao obter o sensor', err);
+            console.error('Erro ao obter o sensor', err);
         }
     };
 
@@ -48,7 +50,7 @@ export function AlteraSensor() {
     }, [id]);
 
     const onSubmit = async (data) => {
-        console.log("Dados inputados no formulário para o PUT", data);
+        console.log("Dados enviados para o PUT:", data);
         try {
             const token = localStorage.getItem('access_token');
             await axios.put(`https://isarocha.pythonanywhere.com/api/sensores/${id}/`, data, {
@@ -56,7 +58,7 @@ export function AlteraSensor() {
                     'Authorization': `Bearer ${token}`
                 }
             });
-            alert("Sensor alterado com sucesso");
+            alert('Sensor alterado com sucesso!');
             navigate('/inicial');
         } catch (error) {
             console.error('Erro ao alterar o sensor', error);
@@ -64,16 +66,15 @@ export function AlteraSensor() {
     };
 
     return (
-        <main className={estilos.container}>
-            <h1>Alteração de Sensor</h1>
-            <form onSubmit={handleSubmit(onSubmit)}>
+        <div className={estilos.container}>
+            <form className={estilos.formulario} onSubmit={handleSubmit(onSubmit)}>
                 <label>Tipo</label>
                 <select {...register('tipo')} className={estilos.campo}>
-                    <option value=''>Selecione um tipo</option>
-                    <option value='Temperatura'>Temperatura</option>
-                    <option value='Contador'>Contador</option>
-                    <option value='Luminosidade'>Luminosidade</option>
-                    <option value='Umidade'>Umidade</option>
+                    <option value="">Selecione o tipo de sensor</option>
+                    <option value="Temperatura">Temperatura</option>
+                    <option value="Contador">Contador</option>
+                    <option value="Luminosidade">Luminosidade</option>
+                    <option value="Umidade">Umidade</option>
                 </select>
                 {errors.tipo && <p className={estilos.mensagem}>{errors.tipo.message}</p>}
 
@@ -97,18 +98,20 @@ export function AlteraSensor() {
                 <input {...register('responsavel')} className={estilos.campo} />
                 {errors.responsavel && <p className={estilos.mensagem}>{errors.responsavel.message}</p>}
 
-                <label>Unidade de Medida</label>
+                <label>Unidade Medida</label>
                 <input {...register('unidade_medida')} className={estilos.campo} />
                 {errors.unidade_medida && <p className={estilos.mensagem}>{errors.unidade_medida.message}</p>}
 
                 <label>Status Operacional</label>
-                <input {...register('status_operacional')} type='checkbox' />
-
-                <label>Observação</label>
-                <textarea {...register('observacao')} className={estilos.campo} />
+                <input {...register('status_operacional')} type="checkbox" />
                 
-                <button type="submit" className={estilos.botao}>Salvar</button>
+                <label>Observação</label>
+                <textarea {...register('observacao')} className={estilos.campo}></textarea>
+                {errors.observacao && <p className={estilos.mensagem}>{errors.observacao.message}</p>}
+
+                <button type="submit" className={estilos.botao}>Salvar Alterações</button>
             </form>
-        </main>
+            <Outlet/>
+        </div>
     );
 }

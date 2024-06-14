@@ -6,18 +6,19 @@ import estilos from './CadastrarUser.module.css';
 import logoProjeto from '../assets/logo-branco.png';
 import { Cabecalho } from "../Componentes/Cabecalho";
 import axios from "axios";
-
-const schemaCadastro = z.object({
-    usuario: z.string().min(5, 'Mínimo de 5 caracteres').max(10, 'Máximo de 10 caracteres'),
-    email: z.string().email('Endereço de e-mail inválido').min(5, 'Mínimo de 5 caracteres'),
-    senha: z.string().min(6, 'Mínimo de 8 caracteres').max(20, 'Máximo de 20 caracteres'),
-    confirmarSenha: z.string().min(6, 'Mínimo de 8 caracteres').max(20, 'Máximo de 20 caracteres').refine((value, context) => value === context?.parent?.senha, {
-        message: 'As senhas não coincidem',
-        path: ['confirmarSenha']
-    })
-});
+import { useState } from "react";
 
 export function Cadastro() {
+    const schemaCadastro = z.object({
+        usuario: z.string().min(5, 'Mínimo de 5 caracteres').max(10, 'Máximo de 10 caracteres'),
+        email: z.string().email('Endereço de e-mail inválido').min(5, 'Mínimo de 5 caracteres'),
+        senha: z.string().min(6, 'Mínimo de 6 caracteres').max(20, 'Máximo de 20 caracteres'),
+        confirmarSenha: z.string().min(6, 'Mínimo de caracteres').max(20, 'Máximo de 20 caracteres').refine((value, context) => value === context?.parent?.senha, {
+            message: 'As senhas não coincidem',
+            path: ['confirmarSenha']
+        })
+    });
+
     const navigate = useNavigate();
 
     const { register, handleSubmit, formState: { errors }, watch } = useForm({
@@ -28,6 +29,8 @@ export function Cadastro() {
     const confirmarSenha = watch('confirmarSenha', '');
 
     async function handleCadastro(data) {
+        console.log(data)
+        console.log('CSRLAOH PORRA CU DESGRSAÇA')
         try {
             const token = localStorage.getItem('access_token');
             if (!token) {
